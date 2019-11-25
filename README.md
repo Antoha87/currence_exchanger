@@ -15,18 +15,18 @@ We may setup this in file: <code>settings/dev-settings.py - CURRENCIES_LIST = ['
  **Backend** - `http://localhost:8000`<br/>
  **Frontend** - `http://localhost:3000`<br/>
 
-**Add rates and curreincies:**
-  1) Load data from fixtures -
+**Add rates and curreincies:**<br/>
+  1) Load data from fixtures -<br/>
   <code>
       python3 manage.py loaddata currency rate --settings=settings.dev-settings
   </code>
   
-  2) Use API:
+  2) Use API:<br/>
   http://localhost:8000/api/create_all_currencies/ - **Creating all currencies which are in** <code>CURRENCIES_LIST</code>.
-    *and*
-  http://localhost:8000/api/update_rates/ - **Creating or updating rates between currencies**.
+    
+  http://localhost:8000/api/update_rates/ - **Creating or updating rates between currencies**.<br/>
   
-**Run tests:**
+**Run tests:**<br/>
 <code>
   sudo docker-compose -f docker-compose.test.yml up
 </code>
