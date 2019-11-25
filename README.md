@@ -17,21 +17,21 @@ We may setup this in file: <code>settings/dev-settings.py - CURRENCIES_LIST = ['
 
 **Add rates and curreincies:**
 
-Load data from fixtures:
+-Load data from fixtures:
   <code>
     python3 manage.py loaddata currency rate --settings=settings.dev-settings.
   </code>
 
-Use API:
+-Use API:
   <code>
     http://localhost:8000/api/create_all_currencies/
-  </code> -Creating all currencies which are in <code>CURRENCIES_LIST</code>.
+  </code> - Creating all currencies which are in <code>CURRENCIES_LIST</code>.
   
   <code>
     http://localhost:8000/api/update_rates/
-  </code> -Creating or updating rates between currencies.
+  </code> - Creating or updating rates between currencies.
   
-**Run tests:**<br/>
+**Run tests:**
 <code>
   sudo docker-compose -f docker-compose.test.yml up
 </code>
