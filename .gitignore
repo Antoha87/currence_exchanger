@@ -105,7 +105,7 @@ venv.bak/
 
 frontend/.idea/
 .idea/
-
+.idea
 *.xml
 
 *.iml
