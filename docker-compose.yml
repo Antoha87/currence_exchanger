@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+  db:
+    restart: unless-stopped
+    image: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      
+  rabbit:
+    restart: unless-stopped
+    hostname: rabbit
+    image: rabbitmq:latest
+    volumes:
+      - ./rabbit_data:/var/lib/rabbitmq/mnesia/rabbit@rabbit
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=qwerty123
+    ports:
+      - "5673:5672"
+  
+  worker:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbit
+    command: bash -c "cd currency_exchanger && celery -A currency_exchanger worker -B --loglevel=info"
+    
+  web:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - ./media:/app/media
+    depends_on:
+      - db
+    command: bash -c "cd currency_exchanger && python3 manage.py makemigrations --no-input --settings=settings.dev-settings && python3 manage.py migrate --settings=settings.dev-settings && python3 manage.py runserver 0.0.0.0:8000 --settings=settings.dev-settings"
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app/frontend
+    command: bash -c "npm start"
+    ports:
+      - "3000:3000"
+
+
+volumes:
+  postgres_data:

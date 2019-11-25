@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  db:
+    restart: unless-stopped
+    image: postgres
+    container_name: "test_postgres"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/test
+
+  rabbit:
+    restart: unless-stopped
+    container_name: "rabbit"
+    hostname: rabbit
+    image: rabbitmq:latest
+    volumes:
+      - ./rabbit_data:/var/lib/rabbitmq/mnesia/rabbit@rabbit
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=qwerty123
+    ports:
+      - "5673:5672"
+
+  worker:
+    build: .
+    restart: unless-stopped
+    container_name: "celery"
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbit
+    command: bash -c "cd currency_exchanger && celery -A currency_exchanger worker -B --loglevel=info"
+
+
+  web:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - ./media:/app/media
+    depends_on:
+      - db
+    command: bash -c "cd currency_exchanger && python3 manage.py makemigrations --no-input --settings=settings.test-settings && python3 manage.py migrate --settings=settings.test-settings && python3 manage.py test --noinput --settings=settings.test-settings"
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
