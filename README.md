@@ -1,5 +1,5 @@
 This app is currency convector. It have 4 basic currency code USD, EUR, PLN and CZK.
-We may setup this in file: <code>settings/dev-settings.py  CURRENCIES_LIST = ['USD', 'EUR', 'PLN', 'CZK', 'UAH']</code>
+We may setup this in file: <code>settings/dev-settings.py - CURRENCIES_LIST = ['USD', 'EUR', 'PLN', 'CZK', 'UAH']</code>
 
 **Run currency exchanger app in terminal:**
 <code>
@@ -15,18 +15,18 @@ We may setup this in file: <code>settings/dev-settings.py  CURRENCIES_LIST = ['U
  **Backend** - `http://localhost:8000`<br/>
  **Frontend** - `http://localhost:3000`<br/>
 
-<p>Add rates and curreincies:</p>
-  *load data from fixtures* -
+**Add rates and curreincies:**
+  1) Load data from fixtures -
   <code>
       python3 manage.py loaddata currency rate --settings=settings.dev-settings
   </code>
-  OR
-  - *Use API*:
+  
+  2) Use API:
   http://localhost:8000/api/create_all_currencies/ - **Creating all currencies which are in** <code>CURRENCIES_LIST</code>.
     *and*
   http://localhost:8000/api/update_rates/ - **Creating or updating rates between currencies**.
   
-*Run tests*:
+**Run tests:**
 <code>
   sudo docker-compose -f docker-compose.test.yml up
 </code>
