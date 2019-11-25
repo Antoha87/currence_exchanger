@@ -15,7 +15,7 @@ We may setup this in file: <code>settings/dev-settings.py - CURRENCIES_LIST = ['
  **Backend** - `http://localhost:8000`<br/>
  **Frontend** - `http://localhost:3000`<br/>
 
-**Add rates and curreincies:**
+**Add rates and curreincies** - Have 2 ways:
 
 -Load data from fixtures:
   <code>
