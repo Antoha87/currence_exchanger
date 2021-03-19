@@ -8,7 +8,7 @@ coreschema==0.0.4
 Django==2.2.13
 django-bulk-update==2.2.0
 django-cors-headers==3.2.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 idna==2.8
 importlib-metadata==0.23
 itypes==1.1.0
